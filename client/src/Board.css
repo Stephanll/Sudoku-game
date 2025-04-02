@@ -1,0 +1,115 @@
+.sudoku-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+  background: #000;
+  gap: 1px;
+}
+
+.row {
+  display: flex;
+  gap: 1px;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+.cell.given {
+  font-weight: bold;
+  background-color: #f5f5f5;
+  cursor: default;
+}
+
+.cell.user-input {
+  background-color: white;
+}
+
+.cell.selected {
+  background-color: #e6f3ff;
+  box-shadow: inset 0 0 0 2px #3a7ca5;
+}
+
+/* 3x3 box borders */
+.row:nth-child(3n) {
+  border-bottom: 2px solid #000;
+}
+
+.cell:nth-child(3n) {
+  border-right: 2px solid #000;
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.control-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+.generate-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.check-btn {
+  background-color: #2196f3;
+  color: white;
+}
+
+.cell.error {
+  background-color: #ffdddd;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-2px); }
+  40%, 80% { transform: translateX(2px); }
+}
+
+.control-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.difficulty-selector {
+  margin: 15px 0;
+}
+
+.difficulty-selector select {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
