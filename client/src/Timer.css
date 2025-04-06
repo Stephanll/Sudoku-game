@@ -1,0 +1,65 @@
+.timer-container {
+    position: relative;
+    padding: 12px 20px;
+    background: #3498db;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .timer-container.active {
+    background: #3498db;
+  }
+
+  .timer-container.completed {
+    background: #95a5a6;
+  }
+  
+  .timer-digits {
+    font-size: 1.8rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .timer-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    z-index: 1;
+    transition: width 0.1s linear;
+  }
+  
+.timer-container.completed .timer-bar {
+  display: none;
+}
+  
+  .timer-container::after {
+    display: none;
+  }
+  
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .timer-container.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255,255,255,0.1) 50%, 
+      transparent 100%);
+    animation: shine 3s infinite;
+  }

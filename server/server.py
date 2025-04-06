@@ -177,11 +177,61 @@ def generate_sudoku(difficulty="easy"):
     
     return box_major
 
-def solve_sudoku(puzzle):
-    # TODO: Implement your solver
-    pass
 
-def hint_sudoku(puzzle):
+@app.route('/api/request-suggestion', methods=['POST'])
+def get_suggestion():
+    puzzle = request.json['puzzle']
+    candidates = initialize_candidates(puzzle)
+    
+    # Find first cell with exactly one candidate
+    suggestion = None
+    for (row, col), nums in candidates.items():
+        if len(nums) == 1:
+            suggestion = {
+                'row': row,
+                'col': col,
+                'possible_values': list(nums)
+            }
+            break
+    
+    return jsonify({
+        'suggestion': suggestion,
+        'message': 'No obvious suggestions found' if suggestion is None else None
+    })
+
+def initialize_candidates(puzzle):
+    candidates = {}
+    
+    for row in range(9):
+        for col in range(9):
+            if puzzle[row][col] == 0:
+                possible = set(range(1, 10))  # Start with 1-9
+                
+                # Check ROW constraints
+                for num in puzzle[row]:
+                    if num in possible:
+                        possible.remove(num)
+                
+                # Check COLUMN constraints
+                for r in range(9):
+                    num = puzzle[r][col]
+                    if num in possible:
+                        possible.remove(num)
+                
+                # Check BOX constraints
+                box_row = (row // 3) * 3  # Top row of the box
+                box_col = (col // 3) * 3  # Left column of the box
+                for i in range(3):
+                    for j in range(3):
+                        num = puzzle[box_row + i][box_col + j]
+                        if num in possible:
+                            possible.remove(num)
+                
+                candidates[(row, col)] = possible
+                
+    return candidates
+
+def solve_sudoku(puzzle):
     # TODO: Implement your solver
     pass
 
