@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Board.css';
+import '../styles/Board.css'
 
 function SuggestionButton({ board, onSuggestion }) {
     const [isLoading, setIsLoading] = useState(false);

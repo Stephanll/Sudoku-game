@@ -1,5 +1,5 @@
 import Board from './Board';
-import './App.css';
+import '../styles/App.css';
 
 function App() {
   // Test puzzle data (9 boxes, each with 9 values)

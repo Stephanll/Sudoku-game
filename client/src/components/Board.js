@@ -1,16 +1,14 @@
 import { useState, useEffect} from 'react';
 import Cell from './Cell';
 import SuggestionButton from './SuggestionButton';
-import './Board.css';
+import '../styles/Board.css';
 import Timer from './Timer';
 
 function Board({ puzzleData }) {
-  const [initialPuzzle] = useState(puzzleData);
   const [currentPuzzle, setCurrentPuzzle] = useState(puzzleData);
   const [timerKey, setTimerKey] = useState(0);
   const [gameActive, setGameActive] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
-  const [isCompleted, setIsCompleted] = useState(false);
   const [grid, setGrid] = useState(() => {
     const initialGrid = Array(9).fill().map(() => Array(9).fill(0));
     for (let boxIndex = 0; boxIndex < 9; boxIndex++) {
@@ -113,7 +111,6 @@ function Board({ puzzleData }) {
       setVerificationResult(result);
   
       if (result.isComplete && result.isValid) {
-        setIsCompleted(true);
         setGameActive(false);
         alert(`🎉 Congratulations! You solved the puzzle in ${formatTime(currentTime)}!`);
       } else if (!result.isComplete) {
@@ -133,7 +130,6 @@ function Board({ puzzleData }) {
     setTimerKey(prev => prev + 1);
     setGameActive(true); // Reset timer when new puzzle is generated
     setIsGenerating(true);
-    setIsCompleted(false);
     try {
       const response = await fetch(`http://localhost:5000/api/new-puzzle?difficulty=${difficulty}`);
       const newPuzzleData = await response.json();
@@ -167,7 +163,6 @@ function Board({ puzzleData }) {
       <Timer 
         key={timerKey}
         isActive={gameActive}
-        isCompleted={isCompleted}
         onReset={timerKey}
         onTimeUpdate={setCurrentTime}
       />

@@ -1,4 +1,4 @@
-import './Board.css';
+import '../styles/Board.css'
 
 function Cell({ value, isGiven, isSelected, isError, isHighlighted, suggestionValue, onClick }) {
   return (
